@@ -1,6 +1,11 @@
-from lxml import html
+#!/bin/env python
+
+import os
+import sys
+
 import requests
 import yaml
+from lxml import html
 
 
 def get_latest_version(package):
@@ -11,12 +16,17 @@ def get_latest_version(package):
 
 
 def get_file_name():
-    return '/home/dhirajsharma/Drive/Arson/Projects/Flutter/flutter_examples/pubspec.yaml'
+    file_name = sys.argv[1] if len(sys.argv) > 1 else os.getcwd()
+    return str(file_name) + "/pubspec.yaml"
 
 
 def get_packages(file_name):
-    yaml_dict = yaml.load(open(file_name), Loader=yaml.FullLoader)
-    return yaml_dict['dependencies']
+    try:
+        yaml_dict = yaml.load(open(file_name), Loader=yaml.FullLoader)
+        return yaml_dict['dependencies']
+    except OSError as e:
+        print_red("pubspec.yaml not found at " + file_name.replace("/pubspec.yaml", ""))
+        sys.exit(1)
 
 
 def print_green(text):
