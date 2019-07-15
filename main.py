@@ -16,16 +16,18 @@ def get_latest_version(package):
 
 
 def get_file_name():
-    file_name = sys.argv[1] if len(sys.argv) > 1 else os.getcwd()
-    return str(file_name) + "/pubspec.yaml"
+    if len(sys.argv) > 1:
+        return sys.argv[1]
+    else:
+        return os.getcwd() + "/pubspec.yaml"
 
 
 def get_packages(file_name):
     try:
         yaml_dict = yaml.load(open(file_name), Loader=yaml.FullLoader)
         return yaml_dict['dependencies']
-    except OSError as e:
-        print_red("pubspec.yaml not found at " + file_name.replace("/pubspec.yaml", ""))
+    except (OSError, KeyError) as e:
+        print_red(file_name + " is not a pubspec.yaml file.")
         sys.exit(1)
 
 
