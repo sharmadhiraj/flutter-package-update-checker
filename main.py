@@ -9,10 +9,13 @@ from lxml import html
 
 
 def get_latest_version(package):
+    print('Checking version of ' + package)
     page = requests.get('https://pub.dev/packages/' + package)
     tree = html.fromstring(page.content)
-    version_info = tree.xpath('//h2[@class="title"]/text()')[0]
-    return version_info.split()[1]
+    version_info = tree.xpath('/html/body/main/div[1]/div[1]/div/div/div/h1')
+    if len(version_info) == 0:
+        version_info = tree.xpath('/html/body/main/div[1]/div[2]/div/div/div/h1')
+    return version_info[0].text.split()[1]
 
 
 def get_file_name():
