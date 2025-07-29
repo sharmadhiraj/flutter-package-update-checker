@@ -1,20 +1,13 @@
 # Flutter Package Update Checker
 
-##### Flutter Package Update Checker
+Quickly check if new versions are available for packages listed in your Flutter project’s `pubspec.yaml`.
 
-Easily check if new versions are available for packages you are using on your Flutter project (pubsec.yaml).
+<img src="screenshots/screenshot_1.png" alt="">
 
-![](https://raw.githubusercontent.com/sharmadhiraj/flutter-package-update-checker/master/screenshots/screenshot_1.png)
+### Setup & Usage
 
-#### Required python packages
-
-1. lxml (pip install lxml)
-2. requests (pip install requests)
-3. pyyaml (pip install pyyaml)
-
-#### Setup & Usage
-
-1. Clone the project.
-2. Install required python packages
-3. Run python script main.py from flutter directory or pass pubspec.yaml file full path as argument.
-4. Done !
+1. Clone the repository.
+2. Install dependencies : `pip install -r requirements.txt`
+3. From the Flutter project directory, run: `python main.py` Or provide a full path to your flutter project `python main.py
+   /full/path/to/flutter-project`
+4. Done! The script will output available package updates.

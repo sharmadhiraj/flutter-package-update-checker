@@ -20,14 +20,18 @@ def get_latest_version(package):
 
 def get_file_name():
     if len(sys.argv) > 1:
-        return sys.argv[1]
+        file_name = sys.argv[1]
+        if not file_name.endswith("pubspec.yaml"):
+            file_name = file_name.rstrip("/\\") + "/pubspec.yaml"
+        return file_name
     else:
-        return os.getcwd() + "/pubspec.yaml"
+        return os.path.join(os.getcwd(), "pubspec.yaml")
 
 
 def get_packages(file_name):
     try:
         yaml_dict = yaml.load(open(file_name), Loader=yaml.FullLoader)
+        print("Checking packages of project : "+yaml_dict['name'])
         return yaml_dict['dependencies']
     except (OSError, KeyError) as e:
         print_red(file_name + " is not a pubspec.yaml file.")
